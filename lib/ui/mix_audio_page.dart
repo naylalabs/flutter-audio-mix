@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -6,14 +7,13 @@ import 'package:flutter_audio_mix/models/sound_model.dart';
 import 'package:flutter_audio_mix/models/sounds_response.dart';
 import 'package:flutter_audio_mix/utils/constants.dart';
 import 'package:flutter_audio_mix/widgets/sound_list_item.dart';
-import 'dart:async';
 import 'package:http/http.dart' as http;
 
 class MixAudioPage extends StatefulWidget {
-  const MixAudioPage({Key? key}) : super(key: key);
+  const MixAudioPage({super.key});
 
   @override
-  _MixAudioPageState createState() => _MixAudioPageState();
+  State<MixAudioPage> createState() => _MixAudioPageState();
 }
 
 class _MixAudioPageState extends State<MixAudioPage> {
@@ -36,15 +36,23 @@ class _MixAudioPageState extends State<MixAudioPage> {
     size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(title: const Text("Audio mix sample"),),
+        appBar: AppBar(
+          title: InkWell(
+              onTap: () {
+                fetchSounds();
+              },
+              child: const Text("Audio mix sample")),
+        ),
         body: _buildUI(),
         bottomNavigationBar: _buildMusicPlayer());
   }
 
   Future<SoundsResponse> fetchSounds() async {
-    final response = await http.get(Uri.parse(Constants.API_BASE_URL));
+    final response = await http.get(Uri.parse(Constants.apiBaseUrl));
 
     if (response.statusCode == 200) {
+      var value = jsonDecode(response.body);
+      debugPrint(value);
       return SoundsResponse.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load album');
@@ -167,7 +175,7 @@ class _MixAudioPageState extends State<MixAudioPage> {
                               fontWeight: FontWeight.w800),
                         ),
                         const SizedBox(width: 8),
-                   /*     DefaultCircularButton(
+                        /*     DefaultCircularButton(
                           iconSize: 48,
                           assetName:
                               isPlaying ? Assets.ic_stop : Assets.ic_play,
@@ -194,8 +202,8 @@ class _MixAudioPageState extends State<MixAudioPage> {
 
   ElevatedButton startButton(String label, VoidCallback onPressed) =>
       ElevatedButton(
-        child: Text(label),
         onPressed: onPressed,
+        child: Text(label),
       );
 
   IconButton playButton() => IconButton(

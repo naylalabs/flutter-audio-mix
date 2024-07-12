@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_mix/utils/assets.dart';
 
@@ -6,13 +5,13 @@ import 'default_circular_button.dart';
 
 class SoundListItem extends StatelessWidget {
   const SoundListItem({
-    Key? key,
+    super.key,
     required this.size,
     this.title,
     this.backgroundImage,
     this.onPressed,
     this.isPlaying,
-  }) : super(key: key);
+  });
 
   final Size size;
   final String? title;
@@ -49,7 +48,7 @@ class SoundListItem extends StatelessWidget {
                   DefaultCircularButton(
                       iconSize: 48,
                       assetName:
-                      isPlaying ?? false ? Assets.ic_stop : Assets.ic_play,
+                          isPlaying ?? false ? Assets.icStop : Assets.icPlay,
                       innerIconSize: 32,
                       iconColor: Colors.white,
                       press: onPressed),

@@ -8,12 +8,13 @@ class DefaultCircularButton extends StatelessWidget {
   final double? innerIconSize;
   final Color? iconColor;
   const DefaultCircularButton(
-      {Key? key,
-        this.press,
-        this.backgroundColor,
-        this.innerIconSize,
-        this.iconSize,
-        this.iconColor,required this.assetName});
+      {super.key,
+      this.press,
+      this.backgroundColor,
+      this.innerIconSize,
+      this.iconSize,
+      this.iconColor,
+      required this.assetName});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +24,7 @@ class DefaultCircularButton extends StatelessWidget {
         height: iconSize ?? 40,
         width: iconSize ?? 40,
         decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: backgroundColor ?? Colors.black),
+            shape: BoxShape.circle, color: backgroundColor ?? Colors.black),
         child: Center(
           child: Image(
             color: iconColor,

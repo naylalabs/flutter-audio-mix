@@ -4,7 +4,6 @@ import 'package:just_audio/just_audio.dart';
 
 /// An [AudioHandler] for playing a single item.
 class AudioPlayerHandler extends BaseAudioHandler with SeekHandler {
-
   final _player = AudioPlayer();
   final List<MixAudioPlayer> _playerList = [];
 
@@ -14,8 +13,7 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler {
   }
 
   //TODO WILL CHANGE FOR ADD FOREGROUND NOTIFICATION
-  Future<void> _init() async {
-  }
+  Future<void> _init() async {}
 
   // In this simple example, we handle only 4 actions: play, pause, seek and
   // stop. Any button press from the Flutter UI, notification, lock screen or
@@ -26,37 +24,36 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler {
   Future customAction(String name, [Map<String, dynamic>? extras]) async {
     switch (name) {
       case 'mixMusic':
-        try {
-          final player = MixAudioPlayer(extras!["id"]);
-          await player.setUrl(extras["url"]);
-          _playerList.add(player);
-          player.play();
-        } catch (e) {
-          print("Error on mix music: $e");
-          // onStop();
-        }
+        // try {
+        final player = MixAudioPlayer(extras!["id"]);
+        await player.setUrl(extras["url"]);
+        _playerList.add(player);
+        player.play();
+        // } catch (e) {
+        //   debugPrint("Error on mix music: $e");
+        //   // onStop();
+        // }
         break;
       case 'pause':
-        try {
-          var id = extras!["id"];
-          for( int i  =0; i< _playerList.length ; i++){
-            if(_playerList[i].id == id){
-              _playerList[i].dispose();
-              _playerList.removeAt(i);
-            }
+        // try {
+        var id = extras!["id"];
+        for (int i = 0; i < _playerList.length; i++) {
+          if (_playerList[i].id == id) {
+            _playerList[i].dispose();
+            _playerList.removeAt(i);
           }
-
-        } catch (e) {
-          print("Player custom action pause Error: $e");
         }
+        // } catch (e) {
+        //   debugPrint("Player custom action pause Error: $e");
+        // }
         break;
 
       case 'pauseAll':
-        try {
-          pause();
-        } catch (e) {
-          print("Player custom action pause Error: $e");
-        }
+        // try {
+        pause();
+        // } catch (e) {
+        //   debugPrint("Player custom action pause Error: $e");
+        // }
         break;
     }
     return super.customAction(name, extras);
@@ -64,7 +61,7 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler {
 
   @override
   Future<void> play() async {
-     for (var element in _playerList) {
+    for (var element in _playerList) {
       await element.play();
     }
   }

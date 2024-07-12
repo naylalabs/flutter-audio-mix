@@ -1,5 +1,4 @@
 class Assets {
-  static const String ic_play = "assets/ic_play.png";
-  static const String ic_stop = "assets/ic_stop.png";
-
+  static const String icPlay = "assets/ic_play.png";
+  static const String icStop = "assets/ic_stop.png";
 }
